@@ -1,5 +1,6 @@
 import axios from "axios";
 import React,{Component} from "react";
+import {IP} from '../connection';
 class gameRepoList extends Component {
     static myInstance = null;
     
@@ -8,7 +9,7 @@ class gameRepoList extends Component {
     }
     getRepoData(data) {
         return new Promise((resolve,reject)=>{
-          axios.post('http://localhost:8000/game/getGameInfo',data)
+          axios.post(IP+'game/getGameInfo',data)
           .then(function (response) {
             resolve(response.data);
           })

@@ -18,6 +18,7 @@ import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import userService from '../services/userService';
 import {useNavigate} from 'react-router-dom'
+import {IP} from '../connection';
 
 function Copyright(props) {
   return (
@@ -81,7 +82,7 @@ const SignUpCard=()=> {
           }}
         >
          <div className='registerslogo'>
-          <img variant="rounded" src={"http://localhost:8000/getImage/?imgName=artifact/logo.png"} style={{width: '100%'}}></img>
+          <img variant="rounded" src={IP+"getImage/?imgName=artifact/logo.png"} style={{width: '100%'}}></img>
              </div>
           <Typography component="h1" variant="h5" style={{margin: '4% auto'}}>
             Sign up

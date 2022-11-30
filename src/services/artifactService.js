@@ -1,6 +1,7 @@
 import axios from "axios";
 import React, { Component } from "react";
 import { useNavigate } from "react-router-dom";
+import {IP} from '../connection';
 class ArtifactService extends Component {
     static myInstance = null;
 
@@ -9,7 +10,7 @@ class ArtifactService extends Component {
     }
     uploadArtifact(data) {
         return new Promise((resolve, reject) => {
-            axios.post('http://localhost:8000/game/getPicture', data)
+            axios.post(IP+'game/getPicture', data)
                 .then(function (response) {
                     resolve(response.data);
                 })
@@ -21,7 +22,7 @@ class ArtifactService extends Component {
     }
     getArtifact(data) {
         return new Promise((resolve, reject) => {
-            axios.post('http://localhost:8000/game/getArtifact', data)
+            axios.post(IP+'game/getArtifact', data)
                 .then(function (response) {
                     resolve(response.data);
                 })

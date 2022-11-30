@@ -1,5 +1,6 @@
 import axios from "axios";
 import React,{Component} from "react";
+import {IP} from '../connection';
 class getEvent extends Component {
     static myInstance = null;
     
@@ -9,7 +10,7 @@ class getEvent extends Component {
     registerService(data) {
         return new Promise((resolve,reject)=>{
             var newData =JSON.stringify(data);
-          axios.post('http://localhost:8000/register',data)
+          axios.post(IP+'register',data)
           .then(function (response) {
             //   console.log(response.data);
             resolve(response.data);
@@ -22,9 +23,10 @@ class getEvent extends Component {
     }
 
     loginService(data){
+      console.log(IP)
         return new Promise((resolve,reject)=>{
             var newData=JSON.stringify(data);
-            axios.post('http://localhost:8000/login',data)
+            axios.post(IP+'login',data)
             .then(function (response) {
               //   console.log(response.data);
               resolve(response.data);
@@ -40,7 +42,7 @@ class getEvent extends Component {
       console.log(data);
       // return new Promise((resolve,reject)=>{
       //     var newData=JSON.stringify(data);
-      //     axios.post('http://localhost:8000/checkNumber',data)
+      //     axios.post(IP+'checkNumber',data)
       //     .then(function (response) {
       //       //   console.log(response.data);
       //       resolve(response.data);

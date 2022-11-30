@@ -4,6 +4,7 @@ import gameRepoList from "../services/gameRepoList";
 import { Button } from "@mui/material";
 import ArtifactService from '../services/artifactService';
 import { Avatar } from "@mui/material";
+import {IP} from '../connection';
 const AddArtifactModal = (data) => {
     const [artifactInfo, setArtifactInfo] = useState([]);
     const columns = [
@@ -34,7 +35,7 @@ const AddArtifactModal = (data) => {
                 empty: true,
                 customBodyRenderLite: (dataIndex, rowIndex) => {
                     return (
-                        <Avatar variant="rounded" src={"http://localhost:8000/getImage/?imgName=" + artifactInfo[dataIndex].artifact_prev}></Avatar>
+                        <Avatar variant="rounded" src={IP+"getImage/?imgName=" + artifactInfo[dataIndex].artifact_prev}></Avatar>
                     );
                 }
             }

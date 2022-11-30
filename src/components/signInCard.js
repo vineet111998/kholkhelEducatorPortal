@@ -1,15 +1,16 @@
 import React,{useState,useEffect} from 'react';
 import { useNavigate  } from 'react-router-dom'
-import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import CssBaseline from '@mui/material/CssBaseline';
 import TextField from '@mui/material/TextField';
 import FormControlLabel from '@mui/material/FormControlLabel';
-import Checkbox from '@mui/material/Checkbox';
 import Link from '@mui/material/Link';
 import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
- import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
+import Radio from '@mui/material/Radio';
+import RadioGroup from '@mui/material/RadioGroup';
+import FormControl from '@mui/material/FormControl';
+import FormLabel from '@mui/material/FormLabel';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
@@ -37,25 +38,31 @@ const SignInCard=(props)=> {
   const [loginUser, setLoginUser]=useState("");
   const [loginPass, setLoginPass]=useState("");
   const [userType,setUserType] =useState(-1);
+  const [value,setValue]=useState(-1);
 
   const history =useNavigate ();
   useEffect(()=>{
+	  
     if(userType==-1) getLoginStatus();
   },[]);
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    if(loginPass==="" || loginUser==="" )
+	  console.log(process.env);
+	  console.log("12");
+    if(loginPass==="" || loginUser===""||value ===-1)
     { 
       if(loginUser==="" && loginPass  === "")
         alert("Please enter the credentials");
       else if(loginPass==="")
         alert("Please enter the password");
-      else
+      else if(loginUser==="")
         alert("Please enter the user name");
+      else if(value===-1)
+      alert("Please select user type");
     }
     else{
-    const userCred={user_email:loginUser ,user_pass:loginPass}
+    const userCred={user_email:loginUser ,user_pass:loginPass,userType:value};
     getSignInCred(userCred);
   }
   };
@@ -136,11 +143,11 @@ const SignInCard=(props)=> {
           }}
         >
           <div className='loginlogo'>
-<img variant="rounded" src={logo} style={{width: '100%'}}></img>
+          <img variant="rounded" src={logo} style={{width: '100%'}}></img>
              </div>
         
           <Typography component="h1" variant="h5" style={{margin: '4% auto'}}>
-            Sign in
+            Sign in {process.env.BackendUrl}
           </Typography>
           <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 1 }}>
             <TextField
@@ -166,13 +173,28 @@ const SignInCard=(props)=> {
               autoComplete="off"
               onChange={(e)=>setLoginPass(e.target.value)}
             />
+            <Grid item xs={12}>
+               <FormControl>
+              <FormLabel id="demo-controlled-radio-buttons-group">Type of User</FormLabel>
+              <RadioGroup
+                aria-labelledby="demo-controlled-radio-buttons-group"
+                name="controlled-radio-buttons-group"
+                value={value}
+                onChange={(event)=>{event.preventDefault();setValue(event.target.value);}}
+                style={{display: 'flex', justifyContent: 'space-evenly', alignItems: 'center', flexDirection: 'row',}}
+              >
+                <FormControlLabel value="0" control={<Radio />} label="Event Maker" />
+                <FormControlLabel value="1" control={<Radio />} label="Activity Maker" />
+              </RadioGroup>
+            </FormControl>
+            </Grid>
             <Grid item xs>
                 <Link href="#" variant="body2">
                   Forgot password?
                 </Link>
               </Grid>
             
-            <Grid container style={{margin: '10% auto 5%', display: 'flex', alignItems: 'center', justifyContent: 'space-between',}}>
+            <Grid container style={{margin: '10% auto 5%', display: 'flex', alignItems: 'center', justifyContent: 'space-between'}}>
               
               
               <Grid item>

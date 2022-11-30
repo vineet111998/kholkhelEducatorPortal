@@ -1,15 +1,15 @@
 import React, { useEffect, useState } from "react";
 import MUIDataTable from "mui-datatables";
 import learningOutcomeService from "../services/learningOutcomeService";
-import Box from '@mui/material/Box';
+// import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
-import Modal from '@mui/material/Modal';
+// import Modal from '@mui/material/Modal';
 import AddLearningOutcome from './addLearningOutcome';
-import ActivityList from './activitylist'
+// import ActivityList from './activitylist'
 const LearningOutcome = () => {
   const columns = [
     {
-      name: "id",
+      name: "key",
       label: "Sl.No",
       options: {
         filter: true,
@@ -38,21 +38,21 @@ const LearningOutcome = () => {
   const [learningOutcome, setLearningOutcome] = useState([]);
   const [active, setActive] = useState("list");
 
-  const [selectedRow, setSelectedRow] = useState();
-  const [outcomeName, setOutcomeName] = useState()
+  // const [selectedRow, setSelectedRow] = useState();
+  // const [outcomeName, setOutcomeName] = useState()
 
-  const options = {
-    onRowClick: (curRowSelected) => {
-      setSelectedRow(curRowSelected[0]);
-      setOutcomeName(curRowSelected[1]);
-      setActive("show");
-    },
-  }
+  // const options = {
+  //   onRowClick: (curRowSelected) => {
+  //     setSelectedRow(curRowSelected[0]);
+  //     setOutcomeName(curRowSelected[1]);
+  //     setActive("show");
+  //   },
+  // }
 
 
   useEffect(() => {
     if (learningOutcome.length === 0) { getGameRepo(); }
-  })
+  },[])
   const ChangeHandler = (e) => {
     setActive(e);
     window.location.reload(true);
@@ -64,22 +64,22 @@ const LearningOutcome = () => {
       let result = JSON.stringify(res);
       let obj = JSON.parse(result);
       for (let i = 0; i < obj.data.length; i++) {
-        repoData.push({ id: obj.data[i].tile_type_id, outcome_name: obj.data[i].tile_name, outcome_desc: obj.data[i].tile_desc })
+        repoData.push({ key:i+1,id: obj.data[i].tile_type_id, outcome_name: obj.data[i].tile_name, outcome_desc: obj.data[i].tile_desc })
       }
       setLearningOutcome(repoData);
     });
   }
-  const style = {
-    position: 'absolute',
-    top: '50%',
-    left: '50%',
-    transform: 'translate(-50%, -50%)',
-    width: '50%',
-    display: 'block'
-  };
-  const handleClose = () => {
-    setActive("list");
-  }
+  // const style = {
+  //   position: 'absolute',
+  //   top: '50%',
+  //   left: '50%',
+  //   transform: 'translate(-50%, -50%)',
+  //   width: '50%',
+  //   display: 'block'
+  // };
+  // const handleClose = () => {
+  //   setActive("list");
+  // }
   return (
     <>
     <div className="artifactouterdiv">
@@ -95,7 +95,7 @@ const LearningOutcome = () => {
             title={"Learning Outcome"}
             data={learningOutcome}
             columns={columns}
-            options={options}
+            // options={options}
             
           />
           </div>
@@ -106,7 +106,7 @@ const LearningOutcome = () => {
         //child Component
         <AddLearningOutcome onChange={ChangeHandler} />
       }
-      {
+      {/* {
         active === "show" &&
 
         <Modal
@@ -119,7 +119,7 @@ const LearningOutcome = () => {
             <ActivityList value={selectedRow} outcomeName={outcomeName} />
           </Box>
         </Modal>
-      }
+      } */}
       </div>
     </>
   )

@@ -4,6 +4,7 @@ import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
 import { styled } from '@mui/material/styles';
 import Grid from '@mui/material/Grid';
+import {IP} from '../connection';
 import Paper from '@mui/material/Paper';
 const ActivityDataCard = (data) => {
     const Item = styled(Paper)(({ theme }) => ({

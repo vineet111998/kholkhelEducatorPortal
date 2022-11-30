@@ -1,5 +1,6 @@
 import axios from "axios";
 import React,{Component} from "react";
+import {IP} from '../connection';
 class MultiLingunalService extends Component {
     static myInstance = null;
     
@@ -8,7 +9,7 @@ class MultiLingunalService extends Component {
     }
     getAllLanguage(data) {
         return new Promise((resolve,reject)=>{
-          axios.post('http://localhost:8000/lang/getLang',data)
+          axios.post(IP+'lang/getLang',data)
           .then(function (response) {
             resolve(response.data);
           })

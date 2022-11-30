@@ -1,5 +1,6 @@
 import axios from "axios";
 import React,{Component} from "react";
+import {IP} from '../connection';
 class getEvent extends Component {
     static myInstance = null;
     
@@ -8,7 +9,7 @@ class getEvent extends Component {
     }
     getEventData() {
         return new Promise((resolve,reject)=>{
-          axios.post('http://localhost:8000/game/getAllTiles')
+          axios.post(IP+'game/getAllTiles')
           .then(function (response) {
             //   console.log(response.data);
             resolve(response.data);
@@ -22,7 +23,7 @@ class getEvent extends Component {
       setEventData(data)
       {
         return new Promise((resolve,reject)=>{
-          axios.post('http://localhost:8000/game/setTiles',data)
+          axios.post(IP+'game/setTiles',data)
           .then(function (response) {
             //   console.log(response.data);
             resolve(response.data);
@@ -38,7 +39,7 @@ class getEvent extends Component {
       getTypeOfEvent(data)
       {
         return new Promise((resolve,reject)=>{
-          axios.post('http://localhost:8000/game/getTypeOfEvent',data)
+          axios.post(IP+'game/getTypeOfEvent',data)
           .then(function (response) {
             resolve(response.data);
           })
@@ -54,7 +55,7 @@ class getEvent extends Component {
       {
         // console.log("hello");
         return new Promise((resolve,reject)=>{
-          axios.post('http://localhost:8000/game/getEventbyGrade',data)
+          axios.post(IP+'game/getEventbyGrade',data)
           .then(function (response) {
             resolve(response.data);
           })
@@ -69,7 +70,7 @@ class getEvent extends Component {
       {
         // console.log("hello");
         return new Promise((resolve,reject)=>{
-          axios.post('http://localhost:8000/game/getEventbyUserid',data)
+          axios.post(IP+'game/getEventbyUserid',data)
           .then(function (response) {
             resolve(response.data);
           })
@@ -84,7 +85,7 @@ class getEvent extends Component {
       setEventByID(data)
       {
         return new Promise((resolve,reject)=>{
-          axios.post('http://localhost:8000/game/setEventbyid',data)
+          axios.post(IP+'game/setEventbyid',data)
           .then(function (response) {
             resolve(response.data);
           })
@@ -98,7 +99,7 @@ class getEvent extends Component {
       getEventByID(data)
       {
         return new Promise((resolve,reject)=>{
-          axios.post('http://localhost:8000/game/getEventbyid',data)
+          axios.post(IP+'game/getEventbyid',data)
           .then(function (response) {
             resolve(response.data);
           })

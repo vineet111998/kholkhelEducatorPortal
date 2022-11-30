@@ -5,6 +5,7 @@ import CardContent from '@mui/material/CardContent';
 import CardActions from '@mui/material/CardActions';
 import Typography from '@mui/material/Typography';
 import { Fab } from '@mui/material';
+
 import AddIcon from "@material-ui/icons/Add";
 import axios from 'axios';
 import TextField from '@mui/material/TextField';
@@ -14,6 +15,7 @@ import DialogContent from '@mui/material/DialogContent';
 import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
 import ArtifactService from '../services/artifactService';
+import {IP} from '../connection';
 const AddArtifact = (props) => {
     const [file, setFile] = React.useState();
     const [name, setName] = React.useState("");
@@ -51,7 +53,7 @@ const AddArtifact = (props) => {
         formData.append('file', file);
 
         return new Promise((resolve, reject) => {
-            axios.post('http://localhost:8000/uploadArtifact', formData)
+            axios.post(IP+'uploadArtifact', formData)
                 .then(function (response) {
                     let res = JSON.stringify(response);
                     let obj = JSON.parse(res)
