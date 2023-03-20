@@ -19,7 +19,7 @@ import Container from '@mui/material/Container';
 import ListItemButton from '@mui/material/ListItemButton';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
-import Link from '@mui/material/Link';
+// import Link from '@mui/material/Link';
 import MenuIcon from '@mui/icons-material/Menu';
 // import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
 import CloseIcon from '@mui/icons-material/Close';
@@ -32,24 +32,25 @@ import ApproveActivity from '../approveActivity';
 import {useNavigate} from 'react-router-dom'
 import LearningOutcome from '../learningOutcome';
 import ArtifactRepo from '../ArtifactRepo'
+import {IP} from '../../connection';
 // import { Avatar } from "@mui/material";
 import BlurOnIcon from '@mui/icons-material/BlurOn';
 import SportsEsportsIcon from '@mui/icons-material/SportsEsports';
 import ListAltIcon from '@mui/icons-material/ListAlt';
 import { useParams } from 'react-router-dom';
 var CryptoJS = require("crypto-js");
-function Copyright(props) {
-  return (
-    <Typography variant="body2" color="text.secondary" align="center" {...props}>
-      {'Copyright © '}
-      <Link color="inherit" href="https://mui.com/">
-        Your Website1
-      </Link>{' '}
-      {new Date().getFullYear()}
-      {'.'}
-    </Typography>
-  );
-}
+// function Copyright(props) {
+//   return (
+//     <Typography variant="body2" color="text.secondary" align="center" {...props}>
+//       {'Copyright © '}
+//       <Link color="inherit" href="https://mui.com/">
+//         Your Website1
+//       </Link>{' '}
+//       {new Date().getFullYear()}
+//       {'.'}
+//     </Typography>
+//   );
+// }
 
 const drawerWidth = 240;
 
@@ -58,7 +59,6 @@ const AppBar = styled(MuiAppBar, {
 })(({ theme, open }) => ({
   background:"#FAF8D9 !important",
   boxShadow: "1px 0 5px rgb(0 0 0 / 50%)",
-  // backgroundImage:"http://localhost:8000/getImage/?imgName=artifact/Screenshot_(3).png",
   zIndex: theme.zIndex.drawer + 1,
   transition: theme.transitions.create(['width', 'margin'], {
     easing: theme.transitions.easing.sharp,
@@ -120,8 +120,8 @@ function DashboardContent() {
     setOpen(!open);
   };
   useEffect(()=>{
-    if(userType==-1) getLoginStatus();
-    if(userType==1 && Object.keys(params).length>0) addActivity();
+    if(userType===-1) getLoginStatus();
+    if(userType===1 && Object.keys(params).length>0) addActivity();
     
   });
   async function checkLoginStatus()
@@ -199,7 +199,7 @@ function DashboardContent() {
                   sx={{ flexGrow: 1 }}
                   style={{textAlign:"center"}}
                 >
-                  <img variant="rounded" src={"http://localhost:8000/getImage/?imgName=artifact/logo.png"} style={{width:"200px",height:"auto"}}></img>
+                  <img variant="rounded" src={IP+"getImage/?imgName=artifact/logo.png"} style={{width:"200px",height:"auto"}}></img>
                   {/* Dashboard */}
                 </Typography>
                 {/* <IconButton color="inherit">
@@ -253,7 +253,7 @@ function DashboardContent() {
                   <ListItemText primary="Game Type Maker" />
                 </ListItemButton> */}
                 {
-                  userType == 0 &&
+                  userType === 0 &&
                 <ListItemButton onClick={() => setActive("LearningOutcome")} style={{padding: '8px 16px', display: 'flex', justifyContent: 'flex-start'}}>
                   <ListItemIcon>
                     <SportsEsportsIcon />
@@ -268,7 +268,7 @@ function DashboardContent() {
                   <ListItemText primary="Artifact Repository" />
                 </ListItemButton>
                 {
-                  userType == 1 &&
+                  userType === 1 &&
                 <ListItemButton onClick={() => setActive("GameRepoList")} style={{padding: '8px 16px', display: 'flex', justifyContent: 'flex-start'}}>
                   <ListItemIcon>
                     <ListAltIcon />
@@ -277,7 +277,7 @@ function DashboardContent() {
                 </ListItemButton>
                 }
                 {
-                  userType == 0 &&
+                  userType === 0 &&
                 <ListItemButton onClick={() => setActive("EventList")} style={{padding: '8px 16px', display: 'flex', justifyContent: 'flex-start'}}>
                   <ListItemIcon>
                     <BlurOnIcon />
@@ -295,7 +295,7 @@ function DashboardContent() {
                 </ListItemButton>
                 } */}
                 {
-                  userType ==1 &&
+                  userType ===1 &&
                 <ListItemButton onClick={() => setActive("MapActivity")} style={{padding: '8px 16px', display: 'flex', justifyContent: 'flex-start'}}>
                   <ListItemIcon>
                     <BlurOnIcon />

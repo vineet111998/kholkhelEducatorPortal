@@ -1,27 +1,14 @@
 import * as React from 'react';
 import MultiLingunalService from '../services/multiLingunalService';
 import Card from '@mui/material/Card';
-import AddActMultiLingual from './addActMultiLingual';
 import AddEventGameModal from "./EventAddGameModal ";
-import Button from '@mui/material/Button';
-import AdapterDateFns from '@mui/lab/AdapterDateFns';
-import LocalizationProvider from '@mui/lab/LocalizationProvider';
-import { Stack } from '@mui/material';
-import TextField from '@mui/material/TextField';
-import { DatePicker } from '@mui/lab';
-import { render } from '@testing-library/react';
-import AddGame from './addGameInfo';
+
 const MultiLingunal = (props) => {
-  console.log(props);
     const [langArr, setLangArr] = React.useState([]);
     const [selLang, setSelLang] = React.useState();
     const [active,setActive]= React.useState("true");
-    const [exipryDate, setExpiryDate] = React.useState(null);
-    const [startDate, setStartDate] = React.useState(null);
-    const [eventDur,setEventDur]=React.useState([]);
-    
+
     React.useEffect(() => {
-      console.log(props.gameData);
         if (langArr.length === 0) getlanguageData();
       });
     async function getlanguageData() {
@@ -32,11 +19,11 @@ const MultiLingunal = (props) => {
           {
             result.data[i]["selected"]=false;
           }
-          // console.log(result.data);
           setLangArr(result.data);
         });
       }
       const tileHandler = (e) => {
+        console.log(e.target.id)
         setSelLang(e.target.id)
         setActive("false")
     }

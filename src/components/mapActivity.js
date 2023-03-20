@@ -79,15 +79,24 @@ const MapActivity = () => {
         setActive('cal');
       }
        const dateChange = async (e) => {
+        // alert("hello world!");
         var start_date=new Date(gameEventData.tile_start_date);
         var end_date=new Date(gameEventData.tile_end_date);
         var selectedDate = new Date(e);
-        if( (selectedDate.getMonth()==start_date.getMonth() && selectedDate.getDate()>=start_date.getDate()) && (selectedDate.getMonth()==end_date.getMonth() && selectedDate.getDate()<=end_date.getDate()))
+        // console.log(selectedDate.getDate());
+        // console.log(start_date.getDate());
+        // console.log(end_date.getDate());
+        var d1=selectedDate.getTime() -start_date.getTime();
+        var d2= end_date.getTime()-start_date.getTime();
+        // console.log(d1);
+        // console.log(d2);
+        // if( (selectedDate.getMonth()==start_date.getMonth() && selectedDate.getDate()>=start_date.getDate()) && (selectedDate.getMonth()==end_date.getMonth() && selectedDate.getDate()<=end_date.getDate()))
+        if(d1>=0 && d1<=d2)
         {
           setSelDate(selectedDate);
           const diffTime = Math.abs(selectedDate - start_date);
           const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24))-1; 
-          console.log(diffDays + " days");
+          // console.log(diffDays + " days");
           setDay(diffDays)
           setGameData(gameEventData.tile_gameData[diffDays].multiGameData);
         }
@@ -100,13 +109,11 @@ const MapActivity = () => {
       const changeHandler=(selectedLang,gameData) =>
       {
         gameEventData.tile_gameData[day].multiGameData[selectedLang][1] = gameData;
-        console.log(gameEventData.tile_gameData[day].multiGameData[selectedLang][1]);
          setGameEvent(event,gameEventData.tile_gameData)
       }
       async function setGameEvent(eventid, data) {
-        // console.log(data);
+        console.log(eventid, data);
         var update=[{tile_id:eventid},{$set:{tile_gameData:data}}];
-        // console.log(update);
         await getEvent.getInstance().setEventByID(update).then((res) => {
           var result = JSON.parse(JSON.stringify(res));
           alert(result.message);

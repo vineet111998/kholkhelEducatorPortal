@@ -1,5 +1,6 @@
 import axios from "axios";
 import React, { Component } from "react";
+import {IP} from '../connection';
 class GameDataService extends Component {
   static myInstance = null;
 
@@ -8,7 +9,7 @@ class GameDataService extends Component {
   }
   getGameType(data) {
     return new Promise((resolve, reject) => {
-      axios.post('http://localhost:8000/game/getGameType',data)
+      axios.post(IP+'game/getGameType',data)
         .then(function (response) {
           resolve(response.data);
         })
@@ -20,7 +21,7 @@ class GameDataService extends Component {
   }
   getGameTypeByID(data) {
     return new Promise((resolve, reject) => {
-      axios.post('http://localhost:8000/game/getGameTypeByID',data)
+      axios.post(IP+'game/getGameTypeByID',data)
         .then(function (response) {
           resolve(response.data);
         })
@@ -33,7 +34,7 @@ class GameDataService extends Component {
 
   setGameAttr(data) {
     return new Promise((resolve, reject) => {
-      axios.post('http://localhost:8000/game/gameInfo', data)
+      axios.post(IP+'game/gameInfo', data)
         .then(function (response) {
           resolve(response.data);
         })
@@ -46,7 +47,7 @@ class GameDataService extends Component {
 
   checkWordRepo(data) {
     return new Promise((resolve, reject) => {
-      axios.post('http://localhost:8000/game/getWordInfoByLength', data)
+      axios.post(IP+'game/getWordInfoByLength', data)
         .then(function (response) {
           resolve(response.data);
         })
@@ -58,7 +59,7 @@ class GameDataService extends Component {
   }
   AddWordToRepo(data) {
     return new Promise((resolve, reject) => {
-      axios.post('http://localhost:8000/game/getWordInfo', data)
+      axios.post(IP+'game/getWordInfo', data)
         .then(function (response) {
           resolve(response.data);
         })
@@ -70,7 +71,7 @@ class GameDataService extends Component {
   }
   getMasterGameType(data) {
     return new Promise((resolve, reject) => {
-      axios.post('http://localhost:8000/game/getTypeOfGame', data)
+      axios.post(IP+'game/getTypeOfGame', data)
         .then(function (response) {
           resolve(response.data);
         })
@@ -82,7 +83,7 @@ class GameDataService extends Component {
   }
   setAvadhanDt(data) {
     return new Promise((resolve, reject) => {
-      axios.post('http://localhost:8000/game/setAvadhanDt', data)
+      axios.post(IP+'game/setAvadhanDt', data)
         .then(function (response) {
           resolve(response.data);
         })

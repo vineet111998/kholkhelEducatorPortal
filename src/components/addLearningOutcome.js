@@ -4,7 +4,6 @@ import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
 import CardActions from '@mui/material/CardActions';
 import TextField from '@mui/material/TextField';
-import ActivityList from './activitylist';
 import AddActivityList from './addActivityList';
 import learningOutcomeService from '../services/learningOutcomeService';
 const AddLearningOutcome = (props) => {
@@ -12,9 +11,6 @@ const AddLearningOutcome = (props) => {
     const [outcomeDesc, setOutcomeDesc] = React.useState("");
     const [status, setStatus] = React.useState(false);
     const [disable, setDisable] = React.useState(true);
-    // const clickHandler = () => {
-    //     setStatus(true);
-    // }
     React.useEffect(() => {
         if (outcomeName.length > 0 && outcomeDesc.length > 0) {
             setDisable(false);

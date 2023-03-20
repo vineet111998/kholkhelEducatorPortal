@@ -1,6 +1,7 @@
 import axios from "axios";
 import React, { Component } from "react";
 import { useNavigate } from "react-router-dom";
+import {IP} from '../connection';
 class GameService extends Component {
   static myInstance = null;
 
@@ -9,7 +10,7 @@ class GameService extends Component {
   }
   setGameType(data) {
     return new Promise((resolve, reject) => {
-      axios.post('http://localhost:8000/game/gameType', data)
+      axios.post(IP+'game/gameType', data)
         .then(function (response) {
           console.log(response.data);
           resolve(response.data);
@@ -22,7 +23,7 @@ class GameService extends Component {
   }
   uploadArtifact(data) {
     return new Promise((resolve, reject) => {
-      axios.post('http://localhost:8000/game/getPicture', data)
+      axios.post(IP+'game/getPicture', data)
         .then(function (response) {
           console.log(response.data);
           resolve(response.data);

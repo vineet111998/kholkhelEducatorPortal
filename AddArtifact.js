@@ -13,7 +13,6 @@ import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
 import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
-import {IP} from '../connection';
 import ArtifactService from '../services/artifactService';
 const AddArtifact = (props) => {
     const [file, setFile] = React.useState();
@@ -35,7 +34,7 @@ const AddArtifact = (props) => {
         })
     }
     const [{ alt, src }, setImg] = React.useState({
-        src: IP+'getImage/?imgName=artifact/uploadImage.jpg',
+        src: '',
         alt: 'Upload an Image'
     });
     const handleImg = (e) => {
@@ -52,7 +51,7 @@ const AddArtifact = (props) => {
         formData.append('file', file);
 
         return new Promise((resolve, reject) => {
-            axios.post(IP+'uploadArtifact', formData)
+            axios.post('http://3.7.18.254:80/uploadArtifact', formData)
                 .then(function (response) {
                     let res = JSON.stringify(response);
                     let obj = JSON.parse(res)
@@ -131,7 +130,7 @@ const AddArtifact = (props) => {
 
                 {
                     <div  style={{width: "60%", textAlign: "center", padding: "8%", margin: "0 auto"}}>
-                <img src={src}  alt={"Upload an Image"} style={{width:"500px",height:"500px",display:"block",background:"rgba(0,0,0,0.2)"}}></img>
+                <img src={'../assets/uploadImage.jpg'}  alt={"Upload an Image"} style={{width:"500px",height:"500px",display:"block",background:"rgba(0,0,0,0.2)"}}></img>
                 </div>
                 }
                 </div>

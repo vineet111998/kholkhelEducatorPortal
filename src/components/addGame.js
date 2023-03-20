@@ -5,6 +5,7 @@ import AddGameInfo from "./addGameInfo";
 import gameRepoList from "../services/gameRepoList";
 import AvadhanAttr from "./moreAvadhanAttr";
 const AddGame = (props) => {
+  console.log(props);
   const [gameInfo, setGameInfo] = React.useState([]);
   const [value,setValue]=React.useState();
   const [active,setActive]=React.useState("list");
@@ -15,11 +16,17 @@ const AddGame = (props) => {
   }
   const columns = [
     {
-      name: "id",
+      name: "idno",
       label: "Sl.No",
       options: {
         filter: true,
         sort: true,
+      }
+    },{
+      name: "id",
+      label: "Sl.No",
+      options: {
+        display:false
       }
     },
     {
@@ -90,11 +97,15 @@ const AddGame = (props) => {
   async function gameMenu() {
     const gameData = [];
     var data={};
-    if(props.value!=0){data={master_game_type_id:props.value};}
+    if(props.value!=0)
+    {
+      data={master_game_type_id:props.value};
+    }
     await gameRepoList.getInstance().getRepoData(data).then((res) => {
       var obj = JSON.parse(JSON.stringify(res));
+      console.log(obj);
       for (let i = 0; i < obj.length; i++) {
-        gameData.push({ id: obj[i].game_info_id, game_name: obj[i].gametypedata[0].game_desc,game_desc: obj[i].game_desc, game_type: obj[i].alltypesofgamesdata[0].master_game_type_name,game_type_id:obj[i].master_game_type_id,game_status:obj[i].statusdata[0].status_desc,game_attr:obj[i].game_attr,status_id:obj[i].status_id});
+        gameData.push({ idno:i+1,id: obj[i].game_info_id, game_name: obj[i].gametypedata[0].game_desc,game_desc: obj[i].game_desc, game_type: obj[i].alltypesofgamesdata[0].master_game_type_name,game_type_id:obj[i].master_game_type_id,game_status:obj[i].statusdata[0].status_desc,game_attr:obj[i].game_attr,status_id:obj[i].status_id});
       }
       setGameInfo(gameData);
     })
@@ -108,7 +119,7 @@ const AddGame = (props) => {
                 {
                   props.value!=0 &&
                   <div style={{ display: "inline-block", width: "99%", padding: ".75%" }}>
-                    <Button variant="contained" style={{ float: "right" }} onClick={() => {setActive("add");props.onChange("list")}}>ADD</Button>
+                    <Button variant="contained" style={{ float: "right" }} onClick={() => {setActive("add");props.onChange("list");}}>ADD GAME</Button>
                   </div>
                 }
               <MUIDataTable
@@ -121,14 +132,13 @@ const AddGame = (props) => {
 
           {
               active==="add" &&
-              <AddGameInfo masterID={gameInfo[0].game_type_id}/>
-            //   gameInfo.master_game_type_id===2 &&
+              <AddGameInfo masterID={props.value}/>
 
           }
-          {
+          {/* {
             active ==="show"&&
           <AvadhanAttr gameData={gameInfo}/>
-          }
+          } */}
     </>
 
           )

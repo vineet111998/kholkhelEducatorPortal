@@ -8,6 +8,9 @@ import PictureAttr from './addPictureAttr';
 import AvadhanAttr from './addAvadhanAttr';
 import AddDragNDropPuzzle from './addDragNdroppuzzle';
 import gameDataService from '../services/gameDataService';
+import AddSentenceScramble from './AddSentenceScramble';
+import AddWordScramble from './AddWordScramble';
+import AddElectroGame from './addElectroGame';
 
 const AddGame = (props) => {
   console.log(props);
@@ -96,14 +99,14 @@ const AddGame = (props) => {
   return (
    
    <> 
-   {
-    value<=0 &&   
-       <MUIDataTable
-        title={"Game Type List"}
-        data={gameInfo}
-        columns={columns}
-        />
-   }
+        {
+          value<=0 &&   
+            <MUIDataTable
+              title={"Game Type List"}
+              data={gameInfo}
+              columns={columns}
+              />
+        }
         {
                     
             props.masterID===1&&
@@ -145,6 +148,24 @@ const AddGame = (props) => {
     value === 6 &&
     (
       <AddDragNDropPuzzle primaryId={value} masterId={props.masterID} />
+    )
+  }
+  {
+    value === 7 &&
+    (
+      <AddSentenceScramble primaryId={value} masterId={props.masterID} />
+    )
+  }
+  {/* {
+    value === 8 &&
+    (
+      <AddWordScramble primaryId={value} masterId={props.masterID} />
+    )
+  } */}
+  {
+    value === 8 &&
+    (
+      <AddElectroGame primaryId={value} masterId={props.masterID} />
     )
   }
   </>

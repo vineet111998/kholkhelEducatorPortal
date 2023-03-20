@@ -8,6 +8,7 @@ import AddIcon from "@material-ui/icons/Add";
 import CardContent from '@mui/material/CardContent';
 import CardActions from '@mui/material/CardActions';
 import TextField from '@mui/material/TextField';
+import {IP} from '../connection';
 const AvadhanAttr = (props) => {
     const[file,setFile]=React.useState();
     const [{alt, src}, setImg] = React.useState({
@@ -31,7 +32,7 @@ const AvadhanAttr = (props) => {
         formData.append('file', file);
       
         return new Promise((resolve,reject)=>{
-        axios.post('http://localhost:8000/uploadImageforAvadhan',formData)
+        axios.post(IP+'uploadImageforAvadhan',formData)
           .then(function (response) {
              let res=JSON.stringify(response);
              let obj =JSON.parse(res)

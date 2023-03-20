@@ -1,5 +1,6 @@
 import axios from "axios";
 import { Component } from "react";
+import {IP} from '../connection';
 import React from "react";
 
 class StatusService extends Component {
@@ -10,7 +11,7 @@ class StatusService extends Component {
     }
     getStatus() {
         return new Promise((resolve, reject) => {
-          axios.post('http://localhost:8000/game/getStatus')
+          axios.post(IP+'game/getStatus')
             .then(function (response) {
               resolve(response.data);
             })

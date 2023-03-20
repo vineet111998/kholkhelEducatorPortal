@@ -1,6 +1,7 @@
 import axios from "axios";
 import React, { Component } from "react";
 import { useNavigate } from "react-router-dom";
+import {IP} from '../connection';
 class learningOutcomeService extends Component {
   static myInstance = null;
 
@@ -9,7 +10,7 @@ class learningOutcomeService extends Component {
   }
   getLearningData() {
     return new Promise((resolve, reject) => {
-      axios.post('http://localhost:8000/game/getLearningInfo',)
+      axios.post(IP+'game/getLearningInfo',)
         .then(function (response) {
           resolve(response.data);
         })
@@ -21,7 +22,7 @@ class learningOutcomeService extends Component {
   }
   setLearningOutcome(data) {
     return new Promise((resolve, reject) => {
-      axios.post('http://localhost:8000/game/setTilesType', data)
+      axios.post(IP+'game/setTilesType', data)
         .then(function (response) {
           resolve(response.data);
         })
@@ -32,7 +33,7 @@ class learningOutcomeService extends Component {
   }
   getActivityList(data) {
     return new Promise((resolve, reject) => {
-      axios.post('http://localhost:8000/game/getActivityList', data).then(function (response) {
+      axios.post(IP+'game/getActivityList', data).then(function (response) {
         resolve(response.data);
       })
         .catch(function (error) {

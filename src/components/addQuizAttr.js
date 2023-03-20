@@ -8,9 +8,14 @@ import RadioGroup from '@mui/material/RadioGroup';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import FormControl from '@mui/material/FormControl';
 import QuizDataCard from "./QuizDataCard";
-import { styled } from '@mui/material/styles';
-import Paper from '@mui/material/Paper';
+import Grid from '@mui/material/Grid';
+import FormLabel from '@mui/material/FormLabel';
 import DialogBox from './QuizDialogBox'
+import { Fab } from '@mui/material';
+import axios from 'axios';
+import AddIcon from "@material-ui/icons/Add";
+import {IP} from '../connection';
+
 const SetQuizAttr = (data) => {
     const [State, setState] = useState(1);
     const [Question, setQuestion] = useState("")
@@ -18,33 +23,72 @@ const SetQuizAttr = (data) => {
     const [Answer, setAnswer] = useState("")
     const [ResultData, setResultData] = useState([]);
     const [open, setOpen] = useState(false);
-    const changeHandler = (e) => {
-        if (e.target.id === 'qbttn' || 'obttn' || 'abttn') {
+    const [value,setValue]=useState(-1);
+    const[file,setFile]=React.useState();
+    const [{alt, src}, setImg] = React.useState({
+        src: '',
+        alt: ' '
+    });
+    const[imageInfo,setImageInfo]=React.useState({});
+    
+    const changeHandler = async(e) => {
+;        if (e.target.id =='obttn' || e.target.id== 'abttn') {
+            
+            if(e.target.id ==='obttn' && value>=0)
+            {
+                await imageHandler();
+            }
             setState(State + 1);
         }
-
-        else if (e.target.id === 'back1') {
+        else if (e.target.id == 'back1') {
             setState(State - 1);
         }
-
     }
+    const imageHandler =() =>{
+        var formData = new FormData();
+        formData.append('file', file);
+      
+        return new Promise((resolve,reject)=>{
+        axios.post(IP+'uploadImage',formData)
+          .then(function (response) {
+             let res=JSON.stringify(response);
+             let obj =JSON.parse(res);
+             console.log(obj)
+             if(obj.status===200)
+             {
+                setImageInfo(obj.data);
+                alert("Uploaded image successfully");
+            }
+            resolve(response.data);
+          })
+          .catch(function (error) {
+            // console.log(error);
+          });
+        })
+    }
+
     const exitHandler = (e) => {
         data.onChange(e);
     }
     const OptionHandler = (result) => {
         Option[result.target.id - 1] = result.target.value;
-        console.log(Option);
+        // console.log(Option);
     }
     const finsihHandler = () => {
         let JosnObj = {
             questions: "",
             answers: "",
-            options: []
+            options: [],
+            value: -1,
+            otherAttr: "",
         }
 
         JosnObj.questions = Question;
         JosnObj.answers = Answer;
         JosnObj.options = Option;
+        JosnObj.value=value;
+        JosnObj.otherAttr=imageInfo;
+        // console.log(JosnObj)
         ResultData.push(JosnObj);
 
         setState(State + 1)
@@ -54,11 +98,25 @@ const SetQuizAttr = (data) => {
         setQuestion("");
         setOption([]);
         setAnswer("");
+        setValue(-1);
+        setImageInfo("");
     }
     const submitHandler = () => {
         setState(State + 1);
         setOpen(true);
     }
+    const handleImg = (e) => {
+        // console.log(e.target.files[0]);
+        if(e.target.files[0]) {
+            setFile(e.target.files[0]);
+            setImg({
+                src: URL.createObjectURL(e.target.files[0]),
+                alt: e.target.files[0].name
+            });    
+        }   
+    }
+    
+
     return (
         <>
             <h2>Quiz Attr</h2>
@@ -68,7 +126,7 @@ const SetQuizAttr = (data) => {
                         ResultData.length > 0 &&
                         ResultData.map((e) =>
                             <div style={{ marginTop: "5%" }}>
-                                <QuizDataCard question={e.questions} optionsForAnswer={e.options} answer={e.answers} />
+                                <QuizDataCard question={e.questions} optionsForAnswer={e.options} answer={e.answers} value={e.value} otherAttr={e.otherAttr} />
                             </div>
                         )
                     }
@@ -105,6 +163,66 @@ const SetQuizAttr = (data) => {
                                 />
                             </CardContent>
                         </Card>
+                    </div>
+                    <div>
+                    <Grid item xs={12}>
+                        <FormControl>
+                        <FormLabel id="demo-controlled-radio-buttons-group">Want to add?</FormLabel>
+                            <RadioGroup
+                                aria-labelledby="demo-controlled-radio-buttons-group"
+                                name="controlled-radio-buttons-group"
+                                value={value}
+                                onChange={(event)=>{event.preventDefault();setValue(event.target.value);}}
+                                style={{display: 'flex', justifyContent: 'space-evenly', alignItems: 'center', flexDirection: 'row',}}
+                            >
+                                <FormControlLabel value="0" control={<Radio />} label="Image" />
+                                <FormControlLabel value="1" control={<Radio />} label="Audio" />
+                            </RadioGroup>
+                        </FormControl>
+                    </Grid>
+                    </div>
+                    <div>
+                        {
+                            value >=0 &&
+                    <Card>
+                        <CardContent style={{width: "40%", textAlign: "center", margin: "0 auto" ,display: "flex",alignItems: "center",flexDirection: "column",justifyContent: "center"}}>
+                            <div style={{display: "flex",flexDirection: "row",alignItems: "center",justifyContent: "center"}}>
+                            <label htmlFor="upload-photo">
+                                <input
+                                    style={{ display: 'none'}}
+                                    id="upload-photo"
+                                    name="file"
+                                    type="file"
+                                    onChange={handleImg}
+                                />
+
+                                <Fab
+                                    color="default"
+                                    size="small"
+                                    component="span"
+                                    aria-label="add"
+                                    variant="extended"
+                                >
+                                    <AddIcon /> Upload
+                                </Fab>
+                            </label>
+                            {
+
+                                <p>{alt}</p>
+                            }
+                            
+                            </div>
+                            {
+                                value==0 &&
+                                <p style={{fontSize:"12px"}}>*file type must be:jpg/jpeg/png</p>
+                            }
+                            {
+                                value==1 &&
+                                <p style={{fontSize:"12px"}}>*file type must be:mp3</p>
+                            }
+                        </CardContent>
+                    </Card>
+                        }
                     </div>
                     <div>
                         <Button variant="contained" onClick={changeHandler} id="obttn">Add Options</Button>
@@ -164,9 +282,6 @@ const SetQuizAttr = (data) => {
                         <Button variant="contained" onClick={changeHandler} id="abttn">Add Answers</Button>
                         <Button variant="contained" onClick={changeHandler} id="back1">Back</Button>
                     </div>
-                    {/* <div>
-                        <Button variant="contained" onClick={changeHandler} id="back1">Back</Button>
-                    </div> */}
                 </div>
             }
             {/* Answers */}
@@ -195,10 +310,6 @@ const SetQuizAttr = (data) => {
                     <Button variant="contained" onClick={finsihHandler} id="fbttn">Finish</Button>
                 </div>
             }
-            {/* {
-                State == 4 &&
-                <QuizDataCard value={ResultData} onClick={propsHandler} />
-            } */}
         </>
     )
 }

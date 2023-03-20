@@ -42,8 +42,6 @@ const EventList = () => {
   return (
     <>
 <Container style={{padding: '20px'}}>
-      {/* <div style={{display:"flex",alignItems:"center"}}> */}
-          {/* <h2>Select Grade</h2> */}
           <Grid container spacing={0} justifyContent="center">
   <Grid item xs={12} md={8} sm={10}>
     <FormControl sx={{ m: 4, width: '75%',}}>
@@ -87,15 +85,7 @@ const EventList = () => {
   </Grid>
 
 </Grid>
-          
-          {/* </div> */}
-          {/* <div style={{display:"flex",alignItems:"center"}}> */}
-          {/* <h2>Select Learning Outcome</h2> */}
-         
-          {/* </div> */}
-          
           <MultiLingualEvent Outcomevalue={value} gradeValue={grade} eventType={eventTypeData} />
-        {/* </div> */}
         </Container>
     </>
   )

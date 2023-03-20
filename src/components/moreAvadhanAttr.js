@@ -6,6 +6,7 @@ import CardContent from '@mui/material/CardContent';
 import CardActions from '@mui/material/CardActions';
 import Typography from '@mui/material/Typography';
 // import TextField from '@mui/material/TextField';
+import {IP} from '../connection';
 import { Button } from '@mui/material';
 const AvadhanAttr=(props) =>{
     const[rows,setRows]=useState(props.gameData.game_attr[0].rows);
@@ -14,7 +15,7 @@ const AvadhanAttr=(props) =>{
     const[locArr,setLocArr]=useState([]);
     const boardRef = useRef(null);
     useEffect(() => {
-        boardRef.current.style.backgroundImage="url('http://localhost:8000/getImage/?imgName="+props.gameData.game_attr[0].image_loc+"')";
+        boardRef.current.style.backgroundImage="url("+IP+"'getImage/?imgName="+props.gameData.game_attr[0].image_loc+"')";
     });
     const getCursorPosition=(canvas, event,ctx)=> {
         var location={};

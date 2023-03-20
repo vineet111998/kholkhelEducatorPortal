@@ -9,6 +9,7 @@ import Radio from '@mui/material/Radio';
 import RadioGroup from '@mui/material/RadioGroup';
 import FormControl from '@mui/material/FormControl';
 import FormLabel from '@mui/material/FormLabel';
+import {IP} from '../connection';
 import Link from '@mui/material/Link';
 import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
@@ -81,7 +82,9 @@ const SignUpCard=()=> {
           }}
         >
          <div className='registerslogo'>
-          <img variant="rounded" src={"http://localhost:8000/getImage/?imgName=artifact/logo.png"} style={{width: '100%'}}></img>
+
+
+          <img variant="rounded" src={IP+"getImage/?imgName=artifact/logo.png"} style={{width: '100%'}}></img>
              </div>
           <Typography component="h1" variant="h5" style={{margin: '4% auto'}}>
             Sign up

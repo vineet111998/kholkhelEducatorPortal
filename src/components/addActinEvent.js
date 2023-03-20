@@ -117,7 +117,7 @@ const AddActinEvent = (data) => {
     <>
 
       <MUIDataTable
-        title={"Events List11 "}
+        title={"Events List"}
         data={gameEventData}
         columns={columns}
         options={options}

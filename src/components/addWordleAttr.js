@@ -11,12 +11,12 @@ import Modal from '@mui/material/Modal';
 import Box from '@mui/material/Box';
 import AddWordList from './AddWordlist'
 const WordleAttr = (props) => {
-    console.log(props);
+    // console.log(props);
     const [word, setWord] = React.useState("");
     const [name, setName] = React.useState("");
     const [state, setState] = React.useState(false);
     const [active, setActive] =React.useState(true);
-    const [artifactName, setArtifactName] = React.useState("Select to add artifact");
+    const [artifactName, setArtifactName] = React.useState("");
     const [artifactData, setArtifactData] = React.useState();
     const [checkWord,setCheckWord] = React.useState("");
     const [pageActive, setPageActive] = React.useState("list");
@@ -101,7 +101,7 @@ const WordleAttr = (props) => {
                 <Typography variant="h6" gutterBottom>
 
                 </Typography>
-                <CardContent >
+                <CardContent style={{textAlign:"left"}}>
                     <TextField style={{ padding: ".6%", marginBottom: "2%" ,}}
                         required
                         id="game_desc"
@@ -129,18 +129,19 @@ const WordleAttr = (props) => {
                     />
                     {
                         active &&
-                    <Button  size="small" value="list" onClick={wordHandler}>Check for word</Button>
+                    <Button  size="small" value="list" onClick={wordHandler} style={{margin:"0 8% 0 0"}}>Check for word</Button>
                     }
-                    <br></br>
+                     {
+                        !active &&
+                    <Button size="small" value="list" style={{margin:"0 8% 0 0"}} onClick={clickHandler}>Submit</Button>
+                    }
+                    {/* <br></br> */}
                     <Button onClick={handleChange}>Add Artifact</Button>
                     <span>{artifactName}</span>
                 </CardContent>
-                <CardActions>
-                    {
-                        !active &&
-                    <Button size="small" value="list" onClick={clickHandler}>Submit</Button>
-                    }
-                </CardActions>
+                {/* <CardActions>
+                   
+                </CardActions> */}
             </Card>
             {state &&
                 <div>

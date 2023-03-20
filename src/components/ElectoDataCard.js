@@ -6,8 +6,8 @@ import { styled } from '@mui/material/styles';
 import Grid from '@mui/material/Grid';
 import Paper from '@mui/material/Paper';
 import {IP} from '../connection';
-const QuizDataCard = (data) => {
-    //    console.log(data);
+const ElectroDataCard = (data) => {
+       console.log(data);
     const Item = styled(Paper)(({ theme }) => ({
         margin: "1%",
         padding: "2%",
@@ -22,20 +22,12 @@ const QuizDataCard = (data) => {
                             <Typography variant="h6" gutterBottom>
                             </Typography>
                             <CardContent >
-                             <p>Question:</p>
-                             <p>{data.question}</p>
-                             {
-                                data.value==0 &&
-                                <img src={IP+"getImage/?imgName="+data.otherAttr} style={{width:"35%"}}/>
-                             }
-                             <p>Options:</p>
-                             <p>{data.optionsForAnswer[0]} {data.optionsForAnswer[1]} {data.optionsForAnswer[2]} {data.optionsForAnswer[3]}</p>
-                             <p>Answer:</p>
-                             <p>{data.answer}</p>
+                             <img src={IP+"getImage/?imgName="+data.question} style={{width:"10%"}}/>
+                             <img src={IP+"getImage/?imgName="+data.answer} style={{width:"10%"}}/>
                             </CardContent>
                         </Card>
             } 
         </>
     )
 }
-export default QuizDataCard
+export default ElectroDataCard

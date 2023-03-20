@@ -3,12 +3,10 @@ import EventDialog_box from './eventDialog_box';
 import Button from '@mui/material/Button';
 import AdapterDateFns from '@mui/lab/AdapterDateFns';
 import LocalizationProvider from '@mui/lab/LocalizationProvider';
-import { Stack } from '@mui/material';
 import TextField from '@mui/material/TextField';
 import Grid from '@mui/material/Grid';
 import { DatePicker } from '@mui/lab';
 const MultiLingunal = (props) => {
-  
     const [active,setActive]= React.useState("true");
     const [exipryDate, setExpiryDate] = React.useState(null);
     const [startDate, setStartDate] = React.useState(null);

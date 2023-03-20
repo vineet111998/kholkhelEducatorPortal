@@ -18,7 +18,7 @@ import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Switch from '@material-ui/core/Switch';
 import AddArtifactModal from './AddArtifactModal'
 import MultiLingunalService from '../services/multiLingunalService';
-
+import { ADMIN_IP } from '../adminconnection';
 export default function FormDialog(data) {
   
   const [name, setName] = React.useState("");
@@ -82,7 +82,7 @@ export default function FormDialog(data) {
         var activityData={mode:"MapActivity",gameData:result.data.tile_id}
         var ciphertext = CryptoJS.AES.encrypt(JSON.stringify(activityData), 'kholKHEL').toString();
       var dataString = ciphertext.replace(/\+/g,'p1L2u3S').replace(/\//g,'s1L2a3S4h').replace(/=/g,'e1Q2u3A4l');
-        setURL("http://localhost:3006/home/"+dataString);
+        setURL(ADMIN_IP+"home/"+dataString);
         alert(result.message);
         // window.location.reload(true);
       }

@@ -16,7 +16,7 @@ const WordleAttr = (props) => {
     const [name, setName] = React.useState("");
     const [state, setState] = React.useState(false);
     const [active, setActive] =React.useState(true);
-    const [artifactName, setArtifactName] = React.useState("Select to add artifact");
+    const [artifactName, setArtifactName] = React.useState("");
     const [artifactData, setArtifactData] = React.useState();
     const [checkWord,setCheckWord] = React.useState("");
     const [pageActive, setPageActive] = React.useState("list");
@@ -95,15 +95,16 @@ const WordleAttr = (props) => {
         <>
         {/* {pageActive =="list" &&
          <div>
-            <h2 style={{ textAlign: "center" }}>WORD GAME ATTRIBUTES</h2>
+            
             <div style={{ display: "inline-block", width: "99%", padding: ".75%" }}>
             <Button variant="contained" style={{ float: "right" }} onClick={() => setPageActive("add")}>ADD</Button>
           </div> */}
+          <h2 style={{ textAlign: "center" }}>HANGMAN GAME ATTRIBUTES</h2>
             <Card>
                 <Typography variant="h6" gutterBottom>
 
                 </Typography>
-                <CardContent >
+                <CardContent style={{textAlign:"left"}}>
                     <TextField style={{ padding: ".6%", marginBottom: "2%" ,}}
                         required
                         id="game_desc"
@@ -131,18 +132,15 @@ const WordleAttr = (props) => {
                     />
                     {
                         active &&
-                    <Button size="small" value="list" onClick={wordHandler}>Check for word</Button>
+                    <Button size="small" value="list" style={{margin:"0 8% 0 0"}} onClick={wordHandler}>Check for word</Button>
                     }
-                    <br></br>
+                     {
+                        !active &&
+                    <Button size="small" value="list" style={{margin:"0 8% 0 0"}} onClick={clickHandler}>Submit</Button>
+                    }
                     <Button onClick={handleChange}>Add Artifact</Button>
                     <span>{artifactName}</span>
                 </CardContent>
-                <CardActions>
-                    {
-                        !active &&
-                    <Button size="small" value="list" onClick={clickHandler}>Submit</Button>
-                    }
-                </CardActions>
             </Card>
             {state &&
                 <div>

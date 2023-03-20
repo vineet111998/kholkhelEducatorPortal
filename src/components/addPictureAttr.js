@@ -6,6 +6,7 @@ import { Fab } from '@mui/material';
 import AddIcon from "@material-ui/icons/Add";
 import axios from 'axios';
 import DialogBox from './dialog_box'
+import {IP} from '../connection';
 const PictureAttr = (props) => {
     const[file,setFile]=React.useState();
     const [open, setOpen]=React.useState(false);
@@ -17,6 +18,7 @@ const PictureAttr = (props) => {
     const [State,setState]=React.useState(0);
 
     const handleImg = (e) => {
+        // console.log(e.target.files[0]);
         if(e.target.files[0]) {
             setFile(e.target.files[0]);
             setImg({
@@ -31,7 +33,7 @@ const PictureAttr = (props) => {
         formData.append('file', file);
       
         return new Promise((resolve,reject)=>{
-        axios.post('http://localhost:8000/uploadImage',formData)
+        axios.post(IP+'uploadImage',formData)
           .then(function (response) {
              let res=JSON.stringify(response);
              let obj =JSON.parse(res)

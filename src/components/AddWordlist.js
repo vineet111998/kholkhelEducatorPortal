@@ -19,7 +19,7 @@ const AddWordList = (props) => {
         JosnObj.wordAttr = word_attr;
         JosnObj.wordLength = word_attr.length;
         ResultData.push(JosnObj);
-        console.log(ResultData);
+        // console.log(ResultData);
         // setStatus(true)
         setWordAttr("");
     }
