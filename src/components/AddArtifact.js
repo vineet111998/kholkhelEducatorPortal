@@ -15,11 +15,13 @@ import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
 import {IP} from '../connection';
 import ArtifactService from '../services/artifactService';
+import OpenAIApiService from '../services/openaiService';
 const AddArtifact = (props) => {
     const [file, setFile] = React.useState();
     const [name, setName] = React.useState("");
     const [imageInfo, setImageInfo] = React.useState({});
     const [State, setState] = React.useState(0);
+    const [desc, setDesc]=React.useState(false);
     const handleClose = (event) => {
         const data = { artifact_name: name, artifact_location: imageInfo };
         uploadArtifact(data);
@@ -47,26 +49,100 @@ const AddArtifact = (props) => {
             });
         }
     }
-    const clickHandler = (event) => {
-        var formData = new FormData();
-        formData.append('file', file);
+    // const clickHandler = (event) => {
+    //     var formData = new FormData();
+    //     formData.append('file', file);
 
-        return new Promise((resolve, reject) => {
-            axios.post(IP+'uploadArtifact', formData)
-                .then(function (response) {
-                    let res = JSON.stringify(response);
-                    let obj = JSON.parse(res)
-                    if (obj.status === 200) {
+    //     return new Promise((resolve, reject) => {
+    //         axios.post(IP+'uploadArtifact', formData)
+    //             .then(function (response) {
+    //                 let res = JSON.stringify(response);
+    //                 let obj = JSON.parse(res)
+    //                 if (obj.status === 200) {
+    //                     setImageInfo(obj.data);
+    //                     setState(State + 1);
+
+    //                 }
+    //                 resolve(response.data);
+    //             })
+    //             .catch(function (error) {
+    //                 console.log(error);
+    //             });
+    //     })
+    // }
+    const getImage=async()=>{
+        console.log(desc);
+        setFile();
+        if(desc.length > 0)
+        {
+            await OpenAIApiService.getInstance().getImageFromOpenAIApi({"textToAI":desc}).then((res) => {
+                setImg({
+                    src: res,
+                    alt: "Nothing Avialbale"
+                });
+                console.log(res);
+            })
+
+        }
+        else
+        {
+            alert('Please enter a description');
+        }
+    }
+    const clickHandler =(event) =>{
+        if(file==undefined)
+        {
+            return new Promise((resolve,reject)=>{
+                axios.post(IP+'saveImageFromUrlForArtifact',{"imageUrl":src})
+                  .then(function (response) {
+                    console.log(response);
+                     let res=JSON.stringify(response);
+                     let obj =JSON.parse(res)
+                     if(obj.status===200)
+                     {
                         setImageInfo(obj.data);
-                        setState(State + 1);
-
+                        setState(State+1);
+                        // setOpen(true);
+                        // ResultData={
+                        //     imgUrl:alt
+                        // }
+                       
                     }
                     resolve(response.data);
-                })
-                .catch(function (error) {
+                  })
+                  .catch(function (error) {
                     console.log(error);
-                });
+                  });
+                })
+        }
+        else
+        {
+        var formData = new FormData();
+        formData.append('file', file);
+        return new Promise((resolve,reject)=>{
+        axios.post(IP+'uploadImage',formData)
+          .then(function (response) {
+            console.log(response);
+             let res=JSON.stringify(response);
+             let obj =JSON.parse(res)
+             if(obj.status===200)
+             {
+                setImageInfo(obj.data);
+                setState(State+1);
+                // setOpen(true);
+                // ResultData={
+                //     imgUrl:alt
+                // }
+               
+            }
+            resolve(response.data);
+          })
+          .catch(function (error) {
+            console.log(error);
+          });
         })
+        }
+     
     }
     const changeHandler = (e) => {
         props.onChange(e);
@@ -126,6 +202,18 @@ const AddArtifact = (props) => {
                             <AddIcon /> Upload photo
                         </Fab>
                     </label>
+                    <h2>or</h2>
+                        <TextField
+                        autoFocus
+                        margin="dense"
+                        id="name"
+                        label="Game Name"
+                        type="name"
+                        fullWidth
+                        variant="standard"
+                        onChange={(e) => setDesc(e.target.value)}
+                    />
+                    <Button style={{margin:"40px auto"}} size="small" onClick={getImage}>getImage</Button>
                                <Button style={{margin:"40px auto"}} size="small" onClick={clickHandler}>Submit</Button>
                                </CardContent>
 
